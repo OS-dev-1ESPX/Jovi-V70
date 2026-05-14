@@ -1,18 +1,12 @@
-// ── LOGIN ──
 function fazerLogin() {
   const userEl = document.getElementById('login-user');
   const passEl = document.getElementById('login-pass');
   const errorEl = document.getElementById('login-error');
-
   const usuario = userEl.value.trim();
   const senha   = passEl.value;
-
-  // Limpa estados anteriores
   userEl.classList.remove('input-error');
   passEl.classList.remove('input-error');
   errorEl.textContent = '';
-
-  // ── Validações com alert() e lógica inline ──
   if (usuario === '' && senha === '') {
     alert('Preencha o usuário e a senha para continuar.');
     userEl.classList.add('input-error');
@@ -20,55 +14,42 @@ function fazerLogin() {
     userEl.focus();
     return;
   }
-
   if (usuario === '') {
     errorEl.textContent = 'O campo usuário não pode estar vazio.';
     userEl.classList.add('input-error');
     userEl.focus();
     return;
   }
-
   if (senha === '') {
     errorEl.textContent = 'O campo senha não pode estar vazio.';
     passEl.classList.add('input-error');
     passEl.focus();
     return;
   }
-
   if (senha.length < 4) {
     errorEl.textContent = 'A senha deve ter pelo menos 4 caracteres.';
     passEl.classList.add('input-error');
     passEl.focus();
     return;
   }
-
-  // ── Credenciais corretas ──
   if (usuario === 'aluno' && senha === '1234') {
-    // Atualiza o avatar e nome no app com o usuário digitado
     document.querySelectorAll('.home-avatar, .profile-avatar').forEach(el => {
       el.textContent = usuario[0].toUpperCase();
     });
     document.querySelector('.profile-name') && (document.querySelector('.profile-name').textContent = usuario);
-
-    // Esconde login e mostra a home
     const loginScreen = document.getElementById('s-login');
     loginScreen.style.opacity = '0';
     loginScreen.style.transition = 'opacity 0.3s';
     setTimeout(() => {
       loginScreen.style.display = 'none';
-      // Ativa a home e libera a nav
       document.getElementById('s-home').classList.add('active');
       document.getElementById('app-area').classList.add('logged-in');
       document.querySelector('.bottom-nav').classList.add('active');
       currentScreen = 's-home';
     }, 300);
-
-    // Para o slideshow
     clearInterval(slideshowTimer);
     return;
   }
-
-  // ── Credenciais erradas ──
   alert('Usuário ou senha incorretos. Tente novamente.');
   passEl.value = '';
   userEl.classList.add('input-error');
@@ -76,46 +57,31 @@ function fazerLogin() {
   errorEl.textContent = 'Usuário ou senha inválidos.';
   userEl.focus();
 }
-
-// Permite logar com Enter
 document.addEventListener('DOMContentLoaded', () => {
   ['login-user', 'login-pass'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') fazerLogin(); });
   });
 });
-
-// ── SLIDESHOW ──
 let currentSlide = 0;
 const totalSlides = 3;
 let slideshowTimer = null;
-
 function goSlide(index) {
   const slides = document.querySelectorAll('.slide');
   const dots   = document.querySelectorAll('.slide-dot');
-
-  // Marca o slide atual como "saindo"
   slides[currentSlide].classList.add('exit');
   slides[currentSlide].classList.remove('active');
   dots[currentSlide].classList.remove('active');
-
-  // Aguarda a transição e remove a classe exit
   const prev = currentSlide;
   setTimeout(() => slides[prev].classList.remove('exit'), 450);
-
   currentSlide = index;
   slides[currentSlide].classList.add('active');
   dots[currentSlide].classList.add('active');
 }
-
 function nextSlide() {
   goSlide((currentSlide + 1) % totalSlides);
 }
-
-// Auto-avanço a cada 3,5 segundos
 slideshowTimer = setInterval(nextSlide, 3500);
-
-
 function updateClock() {
 const now = new Date();
 const h = String(now.getHours()).padStart(2,'0');
@@ -124,12 +90,9 @@ document.getElementById('clock').textContent = h + ':' + m;
 }
 updateClock();
 setInterval(updateClock, 10000);
-
-// ── NAVIGATION ──
 let currentScreen = 's-home';
 let currentNav = 'nav-home';
 const history = [];
-
 function goTo(screenId) {
 if (screenId === currentScreen) return;
 const prev = document.getElementById(currentScreen);
@@ -139,12 +102,9 @@ next.classList.add('active');
   setTimeout(() => prev.classList.remove('active','slide-out'), 380);
   history.push(currentScreen);
   currentScreen = screenId;
-
-  // sync nav
   const navMap = { 's-home':'nav-home','s-cam':'nav-cam','s-resumo':'nav-resumo','s-inet':'nav-inet','s-config':'nav-config' };
   if (navMap[screenId]) setActiveNav(navMap[screenId]);
 }
-
 function goBack() {
   if (history.length === 0) return;
   const prev = history.pop();
@@ -156,15 +116,13 @@ function goBack() {
   const navMap = { 's-home':'nav-home','s-cam':'nav-cam','s-resumo':'nav-resumo','s-inet':'nav-inet','s-config':'nav-config' };
   if (navMap[prev]) setActiveNav(navMap[prev]);
 }
-
 function setActiveNav(navId) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('on'));
   document.getElementById(navId).classList.add('on');
   currentNav = navId;
 }
-
 function navTo(screenId, navId) {
-  history.length = 0; // clear history on nav tap
+  history.length = 0; 
   const prev = document.getElementById(currentScreen);
   const next = document.getElementById(screenId);
   if (prev === next) return;
@@ -172,32 +130,24 @@ function navTo(screenId, navId) {
   next.classList.add('active');
   currentScreen = screenId;
   setActiveNav(navId);
-  // hide badge on resumo
   if (screenId === 's-resumo') document.getElementById('badge-resumo').classList.remove('show');
 }
-
-// ── MODE TOGGLE ──
 let modeOn = false;
 let modeSeconds = 0;
 let modeTimer = null;
-
 function toggleMode() {
-  // Se estiver ligado, pede confirmação antes de desligar
   if (modeOn) {
     const confirmou = confirm('Deseja desativar o Modo Estudo?\n\nSeu progresso da sessão atual será encerrado.');
-    if (!confirmou) return; // usuário cancelou — não faz nada
+    if (!confirmou) return; 
   }
-
   modeOn = !modeOn;
   const toggle = document.getElementById('main-toggle');
   const modeText = document.getElementById('mode-text');
   const focusRing = document.getElementById('focus-ring');
-
   toggle.classList.toggle('on', modeOn);
   modeText.textContent = modeOn ? 'Ativado' : 'Desativado';
   modeText.classList.toggle('on', modeOn);
   focusRing.classList.toggle('on', modeOn);
-
   if (modeOn) {
     modeSeconds = 0;
     modeTimer = setInterval(() => {
@@ -218,21 +168,16 @@ function toggleMode() {
     showNotif('Modo Estudo desativado');
   }
 }
-
-// ── CAMERA / SHOOT ──
 function shootPhoto() {
   const overlay = document.getElementById('ai-overlay');
   const shutter = document.getElementById('shutter-inner');
-  // flash
   shutter.style.background = '#fff';
   shutter.style.boxShadow = '0 0 30px rgba(255,255,255,0.8)';
   setTimeout(() => {
     shutter.style.background = '';
     shutter.style.boxShadow = '';
   }, 150);
-  // show ai processing
   overlay.classList.add('show');
-  // after 2.5s go to resumo
   setTimeout(() => {
     overlay.classList.remove('show');
     document.getElementById('badge-resumo').classList.add('show');
@@ -240,29 +185,20 @@ function shootPhoto() {
     showNotif('Resumo gerado com sucesso! ✨');
   }, 2500);
 }
-
-// ── SALVAR RESUMO com prompt() ──
 function salvarResumo() {
   const sugestao = document.getElementById('resumo-sub')
     ? document.getElementById('resumo-sub').textContent.split('·')[0].trim()
     : 'Resumo';
-
   const nome = prompt('📄 Como deseja salvar este resumo?\nDigite um nome:', sugestao);
-
   if (nome === null) {
-    // Usuário clicou em "Cancelar"
     return;
   }
-
   if (nome.trim() === '') {
     alert('O nome do resumo não pode estar vazio. Tente novamente.');
     return;
   }
-
   showNotif('Resumo "' + nome.trim() + '" salvo! 💾');
 }
-
-
 let notifTimeout;
 const diIcons = {
   'estudo': '🎓', 'desativado': '✋', 'resumo': '✨',
@@ -272,7 +208,6 @@ function showNotif(msg, icon) {
   const island = document.getElementById('di-island');
   const textEl  = document.getElementById('di-text');
   const iconEl  = document.getElementById('di-icon');
-  // pick icon automatically if not given
   if (!icon) {
     const key = Object.keys(diIcons).find(k => msg.toLowerCase().includes(k));
     icon = key ? diIcons[key] : '🔔';
@@ -292,68 +227,49 @@ function hideNotif() {
   island.classList.remove('di-show');
   island.classList.add('di-hide');
 }
-
-// ── SLIDER ──
 function updateSlider(val) {
   const h = Math.floor(val / 60);
   const m = val % 60;
   document.getElementById('slider-val').textContent = m === 0 ? h + 'h' : h + 'h ' + m + 'm';
 }
-
-// ── CONFIG TOGGLE ──
 function toggleCR(el) {
   el.classList.toggle('on');
   const ball = el.querySelector('.toggle-ball');
   ball.style.transform = el.classList.contains('on') ? 'translateX(20px)' : 'translateX(0)';
 }
-
-// ── IDIOMA DO RESUMO ──
 let selectedLang = { code: 'PT-BR', name: 'Português Brasileiro' };
-
 function openLangModal() {
   document.getElementById('lang-overlay').classList.add('show');
   document.getElementById('lang-sheet').classList.add('show');
-  // highlight current
   document.querySelectorAll('.lang-item').forEach(el => {
     const isSelected = el.dataset.code === selectedLang.code;
     el.classList.toggle('lang-item-active', isSelected);
     el.querySelector('.lang-check').textContent = isSelected ? '✓' : '';
   });
 }
-
 function closeLangModal() {
   document.getElementById('lang-overlay').classList.remove('show');
   document.getElementById('lang-sheet').classList.remove('show');
 }
-
 function selectLang(el) {
-  // remove previous
   document.querySelectorAll('.lang-item').forEach(i => {
     i.classList.remove('lang-item-active');
     i.querySelector('.lang-check').textContent = '';
   });
-  // set new
   el.classList.add('lang-item-active');
   el.querySelector('.lang-check').textContent = '✓';
   selectedLang = { code: el.dataset.code, name: el.dataset.name };
-  // update config row display immediately
   document.getElementById('lang-val').textContent = selectedLang.code;
   document.getElementById('lang-desc').textContent = selectedLang.name;
-  // small haptic-like flash
   el.style.transition = 'background 0.1s';
 }
-
-// ── DYNAMIC GREETING ──
 (function() {
   const h = new Date().getHours();
   const greet = h < 12 ? 'Bom dia 👋' : h < 18 ? 'Boa tarde 👋' : 'Boa noite 👋';
   const el = document.querySelector('.home-greeting');
   if (el) el.textContent = greet;
 })();
-
-// ── TOPIC DETAILS ──
 let currentTopicName = '';
-
 document.body.addEventListener('click', (e) => {
   const topicoItem = e.target.closest('.topico-item');
   if (topicoItem) {
@@ -364,13 +280,10 @@ document.body.addEventListener('click', (e) => {
       const iconStr = iconEl.textContent;
       const colorStr = iconEl.style.color;
       const bgStr = iconEl.style.background;
-      
       currentTopicName = title;
-      
       const topicTitle = document.getElementById('topic-title');
       const topicIcon = document.getElementById('topic-icon');
       const topicDot = document.getElementById('topic-resumo-dot');
-      
       if (topicTitle) topicTitle.textContent = title;
       if (topicIcon) {
         topicIcon.textContent = iconStr;
@@ -380,20 +293,16 @@ document.body.addEventListener('click', (e) => {
       if (topicDot) {
         topicDot.style.background = colorStr || 'var(--accent)';
       }
-      
       goTo('s-topico');
     }
   }
 });
-
-// ── DATA: RESUMOS POR TÓPICO ──
 const topicToSubject = {
   "Geometria Plana": "Matemática", "Funções Quadráticas": "Matemática", "Trigonometria": "Matemática", "Análise Combinatória": "Matemática",
   "Leis de Newton": "Física", "Eletromagnetismo": "Física", "Termodinâmica": "Física", "Ondulatória": "Física",
   "Citologia": "Biologia", "Genética": "Biologia", "Ecologia": "Biologia", "Microbiologia": "Biologia",
   "Tabela Periódica": "Química", "Ligações Químicas": "Química", "Reações Químicas": "Química", "Química Orgânica": "Química"
 };
-
 const resumosByTopic = {
   "Leis de Newton": {
     concept: 'As <strong>3 Leis de Newton</strong> descrevem o movimento dos corpos e a relação entre força e aceleração. São a base da mecânica clássica e fundamentais para compreender o comportamento de objetos no espaço.',
@@ -540,23 +449,15 @@ const resumosByTopic = {
     tags: ["Carbono", "Hidrocarboneto", "Álcool", "Grupo funcional", "Isomeria", "Cadeia carbônica"]
   }
 };
-
-// ── FUNÇÃO: ABRIR RESUMO DINÂMICO ──
 function openResumo() {
   const topic = currentTopicName;
   const data = resumosByTopic[topic];
   const subject = topicToSubject[topic] || 'Tópico';
-
   if (data) {
-    // Header subtitle
     document.getElementById('resumo-sub').textContent = `${subject} · ${topic} · agora`;
-    // Photo name
     document.getElementById('resumo-photo-name').textContent = `Quadro_${subject.replace(/\s/g,'')}_${topic.replace(/\s/g,'')}.jpg`;
-    // Concepts count
     document.getElementById('resumo-concepts-count').textContent = data.points.length;
-    // Concept text
     document.getElementById('resumo-concept').innerHTML = data.concept;
-    // Key points
     const kpList = document.getElementById('resumo-keypoints');
     kpList.innerHTML = '';
     data.points.forEach((pt, i) => {
@@ -566,18 +467,14 @@ function openResumo() {
           <div class="kp-text"><em>${pt.title}</em> — ${pt.text}</div>
         </div>`;
     });
-    // Tags
     const tagCloud = document.getElementById('resumo-tags');
     const tagColors = ['purple', 'green', 'yellow'];
     tagCloud.innerHTML = data.tags.map((tag, i) =>
       `<span class="tag ${tagColors[i % 3]}">${tag}</span>`
     ).join('');
   }
-
   goTo('s-resumo');
 }
-
-// ── DATA: FLASHCARDS POR TÓPICO ──
 const flashcardsByTopic = {
   "Leis de Newton": [
     { q: "O que diz a 1ª Lei de Newton (Inércia)?", a: "Um corpo em repouso permanece em repouso e em movimento permanece em movimento, a menos que uma força atue sobre ele." },
@@ -611,7 +508,6 @@ const flashcardsByTopic = {
     { q: "O que é o efeito Doppler?", a: "É a variação aparente da frequência de uma onda quando há movimento relativo entre a fonte emissora e o observador." },
     { q: "O que é ressonância?", a: "Ocorre quando um corpo é submetido a vibrações na sua frequência natural, causando aumento significativo na amplitude." }
   ],
-  // ── MATEMÁTICA ──
   "Geometria Plana": [
     { q: "Qual a fórmula da área de um triângulo?", a: "A = (base × altura) / 2" },
     { q: "Qual a soma dos ângulos internos de um triângulo?", a: "180° (sempre, independente do tipo de triângulo)." },
@@ -644,7 +540,6 @@ const flashcardsByTopic = {
     { q: "Qual a fórmula da combinação simples?", a: "C(n,p) = n! / [p! · (n-p)!]" },
     { q: "O que é o Princípio Fundamental da Contagem?", a: "Se um evento pode ocorrer de m maneiras e outro de n maneiras, ambos juntos podem ocorrer de m × n maneiras." }
   ],
-  // ── BIOLOGIA ──
   "Citologia": [
     { q: "O que é uma célula?", a: "É a unidade básica, estrutural e funcional de todos os seres vivos." },
     { q: "Qual a diferença entre célula animal e vegetal?", a: "A célula vegetal possui parede celular, cloroplastos e vacúolo central, que a célula animal não possui." },
@@ -677,7 +572,6 @@ const flashcardsByTopic = {
     { q: "O que é uma vacina?", a: "É uma preparação biológica que estimula o sistema imunológico a produzir anticorpos contra um patógeno específico, gerando imunidade." },
     { q: "Qual a diferença entre procarionte e eucarionte?", a: "Procariontes não possuem núcleo organizado nem organelas membranosas (ex: bactérias). Eucariontes possuem (ex: animais, plantas)." }
   ],
-  // ── QUÍMICA ──
   "Tabela Periódica": [
     { q: "Como a Tabela Periódica está organizada?", a: "Em 18 colunas (grupos/famílias) e 7 linhas (períodos), ordenada por número atômico crescente." },
     { q: "O que é o número atômico (Z)?", a: "É o número de prótons no núcleo do átomo. Define qual elemento químico é." },
@@ -711,8 +605,6 @@ const flashcardsByTopic = {
     { q: "O que é isomeria?", a: "É o fenômeno em que compostos têm a mesma fórmula molecular, mas estruturas diferentes, resultando em propriedades diferentes." }
   ]
 };
-
-// ── DATA: EXAMES POR TÓPICO ──
 const examsByTopic = {
   "Leis de Newton": [
     {
@@ -822,7 +714,6 @@ const examsByTopic = {
       ans: 1
     }
   ],
-  // ── MATEMÁTICA ──
   "Geometria Plana": [
     {
       q: "Qual a fórmula da área de um triângulo?",
@@ -931,7 +822,6 @@ const examsByTopic = {
       ans: 1
     }
   ],
-  // ── BIOLOGIA ──
   "Citologia": [
     {
       q: "Qual organela é responsável pela respiração celular e produção de ATP?",
@@ -1040,7 +930,6 @@ const examsByTopic = {
       ans: 2
     }
   ],
-  // ── QUÍMICA ──
   "Tabela Periódica": [
     {
       q: "O número atômico (Z) de um elemento indica:",
@@ -1150,47 +1039,36 @@ const examsByTopic = {
     }
   ]
 };
-
-// Variáveis de compatibilidade (usada pelo estado atual)
 let flashcardsData = flashcardsByTopic["Leis de Newton"];
 let examData = examsByTopic["Leis de Newton"];
-
-// ── FLASHCARDS LOGIC ──
 let fcCurrent = 1;
 let fcTotal = flashcardsData.length;
-
 function startFlashcards() {
-  // Carrega flashcards do tópico atual
   if (currentTopicName && flashcardsByTopic[currentTopicName]) {
     flashcardsData = flashcardsByTopic[currentTopicName];
   }
   fcTotal = flashcardsData.length;
   fcCurrent = 1;
-  // Atualiza subtítulo com nome do tópico
   const fcSub = document.getElementById('fc-topic-sub');
   if (fcSub) fcSub.textContent = `Flashcards · ${currentTopicName || 'Tópico atual'}`;
   updateFlashcardUI();
   goTo('s-flashcards');
 }
-
 function updateFlashcardUI() {
   document.getElementById('fc-progress').textContent = `Cartão ${fcCurrent} de ${fcTotal}`;
   document.getElementById('active-flashcard').classList.remove('flipped');
-  
   const currentCard = flashcardsData[fcCurrent - 1];
   document.getElementById('fc-q').textContent = currentCard.q;
   document.getElementById('fc-a').textContent = currentCard.a;
 }
-
 function flipCard() {
   const card = document.getElementById('active-flashcard');
   if (!card.classList.contains('flipped')) {
     card.classList.add('flipped');
   }
 }
-
 function nextCard(event, isCorrect) {
-  event.stopPropagation(); // prevent flip toggle
+  event.stopPropagation(); 
   if (fcCurrent >= fcTotal) {
     showNotif('Revisão concluída! 🎉');
     goBack();
@@ -1199,15 +1077,11 @@ function nextCard(event, isCorrect) {
   fcCurrent++;
   updateFlashcardUI();
 }
-
-// ── EXAM LOGIC ──
 let exCurrent = 1;
 let exTotal = examData.length;
 let exScore = 0;
 let exResults = []; 
-
 function startExam() {
-  // Carrega exame do tópico atual
   if (currentTopicName && examsByTopic[currentTopicName]) {
     examData = examsByTopic[currentTopicName];
   }
@@ -1215,52 +1089,39 @@ function startExam() {
   exCurrent = 1;
   exScore = 0;
   exResults = [];
-  // Atualiza subtítulo com nome do tópico
   const exSub = document.getElementById('ex-topic-sub');
   if (exSub) exSub.textContent = `Simulado · ${currentTopicName || 'Exercícios práticos'}`;
   updateExamUI();
   goTo('s-exam');
 }
-
 function updateExamUI() {
   const qData = examData[exCurrent - 1];
-  
   document.getElementById('ex-prog-text').textContent = `Questão ${exCurrent}/${exTotal}`;
   document.getElementById('ex-prog-fill').style.width = `${(exCurrent / exTotal) * 100}%`;
-  
   document.getElementById('ex-qnum').textContent = `Questão ${exCurrent}`;
   document.getElementById('ex-qtext').textContent = qData.q;
-  
   const optionsDiv = document.getElementById('ex-options');
   optionsDiv.innerHTML = '';
-  optionsDiv.style.pointerEvents = 'auto'; // re-enable clicking
-  
+  optionsDiv.style.pointerEvents = 'auto'; 
   const letters = ['A', 'B', 'C', 'D'];
   qData.opts.forEach((optText, index) => {
     const isCorrect = (index === qData.ans);
     const letter = letters[index];
-    
     const optEl = document.createElement('div');
     optEl.className = 'ex-option';
     optEl.onclick = () => selectOption(optEl, isCorrect, qData.ans, index);
-    
     optEl.innerHTML = `
       <div class="ex-opt-letter">${letter}</div>
       <div class="ex-opt-text">${optText}</div>
     `;
-    
     optionsDiv.appendChild(optEl);
   });
-  
   document.getElementById('ex-next-btn').classList.remove('show');
 }
-
 function selectOption(el, isCorrect, correctIdx, chosenIdx) {
   const optionsDiv = document.getElementById('ex-options');
-  optionsDiv.style.pointerEvents = 'none'; // prevent multiple clicks
-  
+  optionsDiv.style.pointerEvents = 'none'; 
   const allOpts = optionsDiv.querySelectorAll('.ex-option');
-  
   if (isCorrect) {
     el.classList.add('correct');
     exScore++;
@@ -1268,14 +1129,12 @@ function selectOption(el, isCorrect, correctIdx, chosenIdx) {
     el.classList.add('wrong');
     allOpts[correctIdx].classList.add('correct');
   }
-  
   exResults.push({
     q: examData[exCurrent - 1].q,
     chosen: chosenIdx,
     correct: correctIdx,
     isCorrect: isCorrect
   });
-  
   const nextBtn = document.getElementById('ex-next-btn');
   if (exCurrent === exTotal) {
     nextBtn.textContent = 'Ver Resultado';
@@ -1284,7 +1143,6 @@ function selectOption(el, isCorrect, correctIdx, chosenIdx) {
   }
   nextBtn.classList.add('show');
 }
-
 function nextQuestion() {
   if (exCurrent >= exTotal) {
     finishExam();
@@ -1293,20 +1151,15 @@ function nextQuestion() {
     updateExamUI();
   }
 }
-
 function finishExam() {
   document.getElementById('res-score').textContent = `${exScore}/${exTotal}`;
-  
   let pct = exScore / exTotal;
   let titleText = 'Bom trabalho!';
   if (pct === 1) titleText = 'Perfeito! 🏆';
   else if (pct < 0.5) titleText = 'Continue praticando! 💪';
-  
   document.getElementById('res-title-text').textContent = titleText;
-  
   const resList = document.getElementById('res-list');
   resList.innerHTML = '';
-  
   exResults.forEach((res, i) => {
     const itemEl = document.createElement('div');
     itemEl.style.display = 'flex';
@@ -1315,11 +1168,9 @@ function finishExam() {
     itemEl.style.padding = '12px';
     itemEl.style.borderRadius = '12px';
     itemEl.style.border = '1px solid var(--border)';
-    
     const iconColor = res.isCorrect ? 'var(--green)' : 'var(--red)';
     const iconMark = res.isCorrect ? '✓' : '✗';
     const bg = res.isCorrect ? 'rgba(0,223,162,0.1)' : 'rgba(255,79,106,0.1)';
-    
     itemEl.innerHTML = `
       <div style="width:24px;height:24px;border-radius:6px;background:${bg};color:${iconColor};display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;margin-top:2px;">
         ${iconMark}
@@ -1329,20 +1180,15 @@ function finishExam() {
         <div style="font-size:11px;color:var(--text3);line-height:1.4;">${res.q}</div>
       </div>
     `;
-    
     resList.appendChild(itemEl);
   });
-  
   goTo('s-exam-result');
 }
-
-// ── THEME TOGGLE ──
 function toggleTheme() {
 const html = document.documentElement;
 const current = html.getAttribute('data-theme');
 const toggleBtn = document.getElementById('theme-toggle');
 const toggleDesc = document.getElementById('theme-desc');
-
 if (current === 'light') {
     html.removeAttribute('data-theme');
     toggleBtn.classList.remove('on');
