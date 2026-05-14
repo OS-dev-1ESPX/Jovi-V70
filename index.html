@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -6,7 +6,7 @@
 <title>Jovi V70 · Modo Estudo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="src/styles.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -47,11 +47,59 @@
     </div>
   </div>
 
-  <!-- APP AREA -->
+  <!-- APP AREA (wraps login + all screens so bottom-nav is always visible) -->
   <div class="app" id="app-area">
 
-    <!-- ── SCREEN 1: HOME ── -->
-    <div class="screen active" id="s-home">
+  <!-- ── TELA DE LOGIN ── -->
+  <div class="screen active" id="s-login" style="overflow:hidden;">
+
+    <!-- Slideshow -->
+    <div class="slideshow" id="slideshow">
+      <div class="slide active" id="slide-0">
+        <div class="slide-icon">🎓</div>
+        <div class="slide-title">Modo Estudo</div>
+        <div class="slide-desc">Foque, aprenda mais e bloqueie distrações com inteligência artificial.</div>
+      </div>
+      <div class="slide" id="slide-1">
+        <div class="slide-icon">📷</div>
+        <div class="slide-title">Câmera IA</div>
+        <div class="slide-desc">Fotografe o quadro ou caderno e receba um resumo instantâneo gerado por IA.</div>
+      </div>
+      <div class="slide" id="slide-2">
+        <div class="slide-icon">⚡</div>
+        <div class="slide-title">Flashcards & Simulados</div>
+        <div class="slide-desc">Revise com flashcards e teste seus conhecimentos com simulados interativos.</div>
+      </div>
+      <!-- Dots de navegação -->
+      <div class="slide-dots">
+        <div class="slide-dot active" onclick="goSlide(0)"></div>
+        <div class="slide-dot" onclick="goSlide(1)"></div>
+        <div class="slide-dot" onclick="goSlide(2)"></div>
+      </div>
+    </div>
+
+    <!-- Formulário de login -->
+    <div class="login-form">
+      <div class="login-title">Entrar</div>
+      <div class="login-subtitle">Acesse sua conta Jovi V70</div>
+
+      <div class="login-field">
+        <label class="login-label">Usuário</label>
+        <input class="login-input" type="text" id="login-user" placeholder="Digite seu usuário" autocomplete="off">
+      </div>
+      <div class="login-field">
+        <label class="login-label">Senha</label>
+        <input class="login-input" type="password" id="login-pass" placeholder="Digite sua senha">
+      </div>
+      <div class="login-error" id="login-error"></div>
+      <button class="login-btn" onclick="fazerLogin()">Entrar no app</button>
+      <div class="login-hint">Use <strong>aluno</strong> / <strong>1234</strong> para entrar</div>
+    </div>
+
+  </div>
+
+  <!-- ── SCREEN 1: HOME ── -->
+    <div class="screen" id="s-home">
       <div class="home-scroll">
         <div class="home-header">
           <div>
@@ -666,7 +714,7 @@
         </div>
 
         <div class="resumo-actions">
-          <button class="r-btn secondary" onclick="showNotif('Resumo salvo! 💾')">💾 Salvar</button>
+          <button class="r-btn secondary" onclick="salvarResumo()">💾 Salvar</button>
           <button class="r-btn primary" onclick="showNotif('Flashcards criados! 🎉')">⚡ Flashcards</button>
         </div>
         <div style="height:8px;"></div>
@@ -884,298 +932,298 @@
 
         <!-- Física -->
         <div class="matall-card" onclick="goTo('s-fis')">
-          <div class="matall-left">
+        <div class="matall-left">
             <div class="matall-icon" style="background:rgba(59,130,246,0.12);color:#60a5fa;border-color:rgba(59,130,246,0.25);">⚛</div>
             <div class="matall-info">
-              <div class="matall-name">Física</div>
-              <div class="matall-meta">2 resumos · 1h 10min hoje</div>
-              <div class="matall-tags">
+            <div class="matall-name">Física</div>
+            <div class="matall-meta">2 resumos · 1h 10min hoje</div>
+            <div class="matall-tags">
                 <span class="matall-tag" style="background:rgba(59,130,246,0.12);color:#60a5fa;">Mecânica</span>
                 <span class="matall-tag" style="background:rgba(59,130,246,0.12);color:#60a5fa;">Óptica</span>
                 <span class="matall-tag" style="background:rgba(59,130,246,0.12);color:#60a5fa;">Termodinâmica</span>
-              </div>
             </div>
-          </div>
-          <div class="matall-right">
+            </div>
+        </div>
+        <div class="matall-right">
             <div class="matall-pct" style="color:#60a5fa;">45%</div>
             <div class="matall-bar-bg"><div class="matall-bar-fill" style="width:45%;background:linear-gradient(90deg,#3b82f6,#60a5fa);"></div></div>
             <div class="matall-arrow">›</div>
-          </div>
+        </div>
         </div>
 
         <!-- Biologia -->
         <div class="matall-card" onclick="goTo('s-bio')">
-          <div class="matall-left">
+        <div class="matall-left">
             <div class="matall-icon" style="background:rgba(0,223,162,0.1);color:#00dfa2;border-color:rgba(0,223,162,0.25);">🧬</div>
             <div class="matall-info">
-              <div class="matall-name">Biologia</div>
-              <div class="matall-meta">1 resumo · 30min hoje</div>
-              <div class="matall-tags">
+            <div class="matall-name">Biologia</div>
+            <div class="matall-meta">1 resumo · 30min hoje</div>
+            <div class="matall-tags">
                 <span class="matall-tag" style="background:rgba(0,223,162,0.1);color:#00dfa2;">Célula</span>
                 <span class="matall-tag" style="background:rgba(0,223,162,0.1);color:#00dfa2;">Genética</span>
                 <span class="matall-tag" style="background:rgba(0,223,162,0.1);color:#00dfa2;">Ecologia</span>
-              </div>
             </div>
-          </div>
-          <div class="matall-right">
+            </div>
+        </div>
+        <div class="matall-right">
             <div class="matall-pct" style="color:#00dfa2;">25%</div>
             <div class="matall-bar-bg"><div class="matall-bar-fill" style="width:25%;background:linear-gradient(90deg,#00c48c,#00dfa2);"></div></div>
             <div class="matall-arrow">›</div>
-          </div>
+        </div>
         </div>
 
         <!-- Química -->
         <div class="matall-card" onclick="goTo('s-qui')">
-          <div class="matall-left">
+        <div class="matall-left">
             <div class="matall-icon" style="background:rgba(255,201,60,0.1);color:#ffc93c;border-color:rgba(255,201,60,0.25);">⚗</div>
             <div class="matall-info">
-              <div class="matall-name">Química</div>
-              <div class="matall-meta">0 resumos · não iniciado</div>
-              <div class="matall-tags">
+            <div class="matall-name">Química</div>
+            <div class="matall-meta">0 resumos · não iniciado</div>
+            <div class="matall-tags">
                 <span class="matall-tag" style="background:rgba(255,201,60,0.1);color:#ffc93c;">Orgânica</span>
                 <span class="matall-tag" style="background:rgba(255,201,60,0.1);color:#ffc93c;">Inorgânica</span>
                 <span class="matall-tag" style="background:rgba(255,201,60,0.1);color:#ffc93c;">Físico-Química</span>
-              </div>
             </div>
-          </div>
-          <div class="matall-right">
+            </div>
+        </div>
+        <div class="matall-right">
             <div class="matall-pct" style="color:#ffc93c;">8%</div>
             <div class="matall-bar-bg"><div class="matall-bar-fill" style="width:8%;background:linear-gradient(90deg,#e6a800,#ffc93c);"></div></div>
             <div class="matall-arrow">›</div>
-          </div>
+        </div>
         </div>
 
         <div class="matall-summary">
-          <div class="matall-sum-item"><div class="mas-val">7</div><div class="mas-lbl">Resumos totais</div></div>
-          <div class="matall-sum-item"><div class="mas-val">54</div><div class="mas-lbl">Flashcards</div></div>
-          <div class="matall-sum-item"><div class="mas-val">41%</div><div class="mas-lbl">Média geral</div></div>
+        <div class="matall-sum-item"><div class="mas-val">7</div><div class="mas-lbl">Resumos totais</div></div>
+        <div class="matall-sum-item"><div class="mas-val">54</div><div class="mas-lbl">Flashcards</div></div>
+        <div class="matall-sum-item"><div class="mas-val">41%</div><div class="mas-lbl">Média geral</div></div>
         </div>
 
         <div style="height:16px;"></div>
-      </div>
+    </div>
     </div>
 
     <!-- ── SCREEN: TÓPICO DETALHE ── -->
     <div class="screen" id="s-topico">
-      <div class="resumo-header">
+    <div class="resumo-header">
         <div class="back-btn" onclick="goBack()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="color:var(--text2);"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="color:var(--text2);"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         </div>
         <div class="rh-info" style="display:flex; align-items:center; gap:10px;">
-          <div id="topic-icon" class="topico-icon" style="background:rgba(255,255,255,0.05); width:36px; height:36px; border-radius:10px;"></div>
-          <div>
+        <div id="topic-icon" class="topico-icon" style="background:rgba(255,255,255,0.05); width:36px; height:36px; border-radius:10px;"></div>
+        <div>
             <div class="rh-title" id="topic-title">Tópico</div>
             <div class="rh-sub">Detalhes do conteúdo</div>
-          </div>
         </div>
-      </div>
+        </div>
+    </div>
 
-      <div class="resumo-scroll">
+    <div class="resumo-scroll">
         <!-- Quick Stats -->
         <div class="mat-stats-row">
-          <div class="mat-stat"><div class="mst-val" style="color:var(--text);">1</div><div class="mst-lbl">Resumos</div></div>
-          <div class="mat-stat"><div class="mst-val" style="color:var(--text);">12</div><div class="mst-lbl">Flashcards</div></div>
-          <div class="mat-stat"><div class="mst-val" style="color:var(--green);">85%</div><div class="mst-lbl">Acertos</div></div>
+        <div class="mat-stat"><div class="mst-val" style="color:var(--text);">1</div><div class="mst-lbl">Resumos</div></div>
+        <div class="mat-stat"><div class="mst-val" style="color:var(--text);">12</div><div class="mst-lbl">Flashcards</div></div>
+        <div class="mat-stat"><div class="mst-val" style="color:var(--green);">85%</div><div class="mst-lbl">Acertos</div></div>
         </div>
 
         <div class="mat-sec-label">Resumos Salvos</div>
         <div class="atividade-list">
-          <div class="atividade-item" onclick="openResumo()" style="cursor:pointer;">
+        <div class="atividade-item" onclick="openResumo()" style="cursor:pointer;">
             <div class="atv-dot" id="topic-resumo-dot" style="background:var(--accent);"></div>
             <div class="atv-info"><div class="atv-name">Resumo Principal</div><div class="atv-time">Gerado por IA · Texto e pontos-chave</div></div>
             <div class="atv-badge" style="background:rgba(111,92,232,0.15);color:#8f7fff;">📄</div>
-          </div>
+        </div>
         </div>
 
         <div class="mat-sec-label" style="margin-top:20px;">Prática e Revisão</div>
         <div class="quick-row">
-          <div class="quick-card" onclick="startFlashcards()">
+        <div class="quick-card" onclick="startFlashcards()">
             <div class="qc-icon" style="background:rgba(255,201,60,0.15); font-size:20px;">⚡</div>
             <div class="qc-name">Flashcards</div>
             <div class="qc-desc">12 cartões para revisar</div>
             <div class="qc-arrow">→</div>
-          </div>
-          <div class="quick-card" onclick="startExam()">
+        </div>
+        <div class="quick-card" onclick="startExam()">
             <div class="qc-icon" style="background:rgba(0,223,162,0.15); font-size:20px;">📝</div>
             <div class="qc-name">Exercícios</div>
             <div class="qc-desc">Modo teste simulado</div>
             <div class="qc-arrow">→</div>
-          </div>
+        </div>
         </div>
         
         <div style="height:16px;"></div>
-      </div>
+    </div>
     </div>
 
     <!-- ── SCREEN: FLASHCARDS ── -->
     <div class="screen flashcards-screen" id="s-flashcards">
-      <div class="fc-header">
+    <div class="fc-header">
         <div class="back-btn" onclick="goBack()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="color:var(--text2);"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="color:var(--text2);"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         </div>
         <div class="fc-title-group">
-          <div class="fc-title">Revisão Rápida</div>
-          <div class="fc-sub" id="fc-topic-sub">Flashcards · Tópico atual</div>
+        <div class="fc-title">Revisão Rápida</div>
+        <div class="fc-sub" id="fc-topic-sub">Flashcards · Tópico atual</div>
         </div>
         <div class="rh-ia-chip">IA</div>
-      </div>
-      
-      <div class="fc-container">
+    </div>
+    
+    <div class="fc-container">
         <div class="fc-progress" id="fc-progress">Cartão 1 de 12</div>
         
         <div class="flashcard" id="active-flashcard" onclick="flipCard()">
-          <div class="flashcard-inner" id="fc-inner">
+        <div class="flashcard-inner" id="fc-inner">
             <div class="fc-side fc-front">
-              <div class="fc-front-icon">🤔</div>
-              <div class="fc-front-title">Pergunta</div>
-              <div class="fc-front-text" id="fc-q">O que diz a 1ª Lei de Newton?</div>
-              <div class="fc-tap-hint">Toque para ver a resposta</div>
+            <div class="fc-front-icon">🤔</div>
+            <div class="fc-front-title">Pergunta</div>
+            <div class="fc-front-text" id="fc-q">O que diz a 1ª Lei de Newton?</div>
+            <div class="fc-tap-hint">Toque para ver a resposta</div>
             </div>
             <div class="fc-side fc-back">
-              <div class="fc-ans-title">Resposta</div>
-              <div class="fc-ans-text" id="fc-a">Um corpo em repouso permanece em repouso, e em movimento permanece em movimento, a menos que uma força aja sobre ele (Inércia).</div>
-              <div class="fc-actions">
+            <div class="fc-ans-title">Resposta</div>
+            <div class="fc-ans-text" id="fc-a">Um corpo em repouso permanece em repouso, e em movimento permanece em movimento, a menos que uma força aja sobre ele (Inércia).</div>
+            <div class="fc-actions">
                 <button class="fc-btn wrong" onclick="nextCard(event, false)">Errei</button>
                 <button class="fc-btn correct" onclick="nextCard(event, true)">Acertei</button>
-              </div>
             </div>
-          </div>
+            </div>
         </div>
-      </div>
+        </div>
+    </div>
     </div>
 
     <!-- ── SCREEN: EXAM ── -->
     <div class="screen" id="s-exam">
-      <div class="fc-header">
+    <div class="fc-header">
         <div class="back-btn" onclick="goBack()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="color:var(--text2);"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="color:var(--text2);"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         </div>
         <div class="fc-title-group">
-          <div class="fc-title">Simulado</div>
-          <div class="fc-sub" id="ex-topic-sub">Exercícios práticos</div>
+        <div class="fc-title">Simulado</div>
+        <div class="fc-sub" id="ex-topic-sub">Exercícios práticos</div>
         </div>
-      </div>
-      
-      <div class="ex-scroll">
+    </div>
+    
+    <div class="ex-scroll">
         <div class="ex-progress">
-          <div class="ex-prog-text" id="ex-prog-text">Questão 1/5</div>
-          <div class="ex-prog-bar"><div class="ex-prog-fill" id="ex-prog-fill"></div></div>
+        <div class="ex-prog-text" id="ex-prog-text">Questão 1/5</div>
+        <div class="ex-prog-bar"><div class="ex-prog-fill" id="ex-prog-fill"></div></div>
         </div>
         
         <div class="ex-question-card">
-          <div class="ex-qnum" id="ex-qnum">Questão 1</div>
-          <div class="ex-qtext" id="ex-qtext">Qual é a fórmula fundamental da 2ª Lei de Newton?</div>
+        <div class="ex-qnum" id="ex-qnum">Questão 1</div>
+        <div class="ex-qtext" id="ex-qtext">Qual é a fórmula fundamental da 2ª Lei de Newton?</div>
         </div>
         
         <div class="ex-options" id="ex-options">
-          <div class="ex-option" onclick="selectOption(this, false)">
+        <div class="ex-option" onclick="selectOption(this, false)">
             <div class="ex-opt-letter">A</div>
             <div class="ex-opt-text" id="ex-opt-a">E = mc²</div>
-          </div>
-          <div class="ex-option" onclick="selectOption(this, true)">
+        </div>
+        <div class="ex-option" onclick="selectOption(this, true)">
             <div class="ex-opt-letter">B</div>
             <div class="ex-opt-text" id="ex-opt-b">F = m · a</div>
-          </div>
-          <div class="ex-option" onclick="selectOption(this, false)">
+        </div>
+        <div class="ex-option" onclick="selectOption(this, false)">
             <div class="ex-opt-letter">C</div>
             <div class="ex-opt-text" id="ex-opt-c">V = v0 + at</div>
-          </div>
-          <div class="ex-option" onclick="selectOption(this, false)">
+        </div>
+        <div class="ex-option" onclick="selectOption(this, false)">
             <div class="ex-opt-letter">D</div>
             <div class="ex-opt-text" id="ex-opt-d">P = m · g</div>
-          </div>
+        </div>
         </div>
         
         <button class="ex-check-btn" id="ex-next-btn" onclick="nextQuestion()">Próxima questão</button>
-      </div>
+    </div>
     </div>
 
     <!-- ── SCREEN: EXAM RESULT ── -->
     <div class="screen" id="s-exam-result">
-      <div class="fc-header">
+    <div class="fc-header">
         <div class="back-btn" onclick="goBack()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="color:var(--text2);"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="color:var(--text2);"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         </div>
         <div class="fc-title-group">
-          <div class="fc-title">Resultado</div>
-          <div class="fc-sub">Resumo do Simulado</div>
+        <div class="fc-title">Resultado</div>
+        <div class="fc-sub">Resumo do Simulado</div>
         </div>
-      </div>
-      
-      <div class="ex-scroll" style="display:flex; flex-direction:column; align-items:center; padding: 40px 20px;">
+    </div>
+    
+    <div class="ex-scroll" style="display:flex; flex-direction:column; align-items:center; padding: 40px 20px;">
         <div class="res-circle" id="res-score">0/0</div>
         <div class="res-title" id="res-title-text">Bom trabalho!</div>
         <div class="res-sub">Abaixo está o seu desempenho em cada questão:</div>
         
         <div class="res-list" id="res-list" style="width: 100%; margin-top: 30px; display:flex; flex-direction:column; gap:12px;">
-          <!-- Injected via JS -->
+        <!-- Injected via JS -->
         </div>
         
         <button class="ex-check-btn show" style="margin-top: 40px;" onclick="goTo('s-topico')">Voltar para o Tópico</button>
         <div style="height: 30px;"></div>
-      </div>
+    </div>
     </div>
 
-  </div><!-- /app -->
+</div><!-- /app -->
 
-  <!-- ── MODAL: IDIOMA DO RESUMO ── -->
-  <div class="lang-overlay" id="lang-overlay" onclick="closeLangModal()"></div>
-  <div class="lang-sheet" id="lang-sheet">
+<!-- ── MODAL: IDIOMA DO RESUMO ── -->
+<div class="lang-overlay" id="lang-overlay" onclick="closeLangModal()"></div>
+<div class="lang-sheet" id="lang-sheet">
     <div class="lang-sheet-handle"></div>
     <div class="lang-sheet-title">Idioma do Resumo</div>
     <div class="lang-sheet-sub">O resumo gerado pela IA será neste idioma</div>
     <div class="lang-list" id="lang-list">
-      <div class="lang-item" data-code="PT-BR" data-name="Português Brasileiro" onclick="selectLang(this)"><div class="lang-flag">🇧🇷</div><div class="lang-info"><div class="lang-name">Português Brasileiro</div><div class="lang-code">PT-BR</div></div><div class="lang-check" id="check-PT-BR">✓</div></div>
-      <div class="lang-item" data-code="PT-PT" data-name="Português Europeu" onclick="selectLang(this)"><div class="lang-flag">🇵🇹</div><div class="lang-info"><div class="lang-name">Português Europeu</div><div class="lang-code">PT-PT</div></div><div class="lang-check" id="check-PT-PT"></div></div>
-      <div class="lang-item" data-code="EN" data-name="English" onclick="selectLang(this)"><div class="lang-flag">🇺🇸</div><div class="lang-info"><div class="lang-name">English</div><div class="lang-code">EN</div></div><div class="lang-check" id="check-EN"></div></div>
-      <div class="lang-item" data-code="ES" data-name="Español" onclick="selectLang(this)"><div class="lang-flag">🇪🇸</div><div class="lang-info"><div class="lang-name">Español</div><div class="lang-code">ES</div></div><div class="lang-check" id="check-ES"></div></div>
-      <div class="lang-item" data-code="FR" data-name="Français" onclick="selectLang(this)"><div class="lang-flag">🇫🇷</div><div class="lang-info"><div class="lang-name">Français</div><div class="lang-code">FR</div></div><div class="lang-check" id="check-FR"></div></div>
-      <div class="lang-item" data-code="DE" data-name="Deutsch" onclick="selectLang(this)"><div class="lang-flag">🇩🇪</div><div class="lang-info"><div class="lang-name">Deutsch</div><div class="lang-code">DE</div></div><div class="lang-check" id="check-DE"></div></div>
-      <div class="lang-item" data-code="IT" data-name="Italiano" onclick="selectLang(this)"><div class="lang-flag">🇮🇹</div><div class="lang-info"><div class="lang-name">Italiano</div><div class="lang-code">IT</div></div><div class="lang-check" id="check-IT"></div></div>
-      <div class="lang-item" data-code="JA" data-name="日本語" onclick="selectLang(this)"><div class="lang-flag">🇯🇵</div><div class="lang-info"><div class="lang-name">日本語</div><div class="lang-code">JA</div></div><div class="lang-check" id="check-JA"></div></div>
+    <div class="lang-item" data-code="PT-BR" data-name="Português Brasileiro" onclick="selectLang(this)"><div class="lang-flag">🇧🇷</div><div class="lang-info"><div class="lang-name">Português Brasileiro</div><div class="lang-code">PT-BR</div></div><div class="lang-check" id="check-PT-BR">✓</div></div>
+    <div class="lang-item" data-code="PT-PT" data-name="Português Europeu" onclick="selectLang(this)"><div class="lang-flag">🇵🇹</div><div class="lang-info"><div class="lang-name">Português Europeu</div><div class="lang-code">PT-PT</div></div><div class="lang-check" id="check-PT-PT"></div></div>
+    <div class="lang-item" data-code="EN" data-name="English" onclick="selectLang(this)"><div class="lang-flag">🇺🇸</div><div class="lang-info"><div class="lang-name">English</div><div class="lang-code">EN</div></div><div class="lang-check" id="check-EN"></div></div>
+    <div class="lang-item" data-code="ES" data-name="Español" onclick="selectLang(this)"><div class="lang-flag">🇪🇸</div><div class="lang-info"><div class="lang-name">Español</div><div class="lang-code">ES</div></div><div class="lang-check" id="check-ES"></div></div>
+    <div class="lang-item" data-code="FR" data-name="Français" onclick="selectLang(this)"><div class="lang-flag">🇫🇷</div><div class="lang-info"><div class="lang-name">Français</div><div class="lang-code">FR</div></div><div class="lang-check" id="check-FR"></div></div>
+    <div class="lang-item" data-code="DE" data-name="Deutsch" onclick="selectLang(this)"><div class="lang-flag">🇩🇪</div><div class="lang-info"><div class="lang-name">Deutsch</div><div class="lang-code">DE</div></div><div class="lang-check" id="check-DE"></div></div>
+    <div class="lang-item" data-code="IT" data-name="Italiano" onclick="selectLang(this)"><div class="lang-flag">🇮🇹</div><div class="lang-info"><div class="lang-name">Italiano</div><div class="lang-code">IT</div></div><div class="lang-check" id="check-IT"></div></div>
+    <div class="lang-item" data-code="JA" data-name="日本語" onclick="selectLang(this)"><div class="lang-flag">🇯🇵</div><div class="lang-info"><div class="lang-name">日本語</div><div class="lang-code">JA</div></div><div class="lang-check" id="check-JA"></div></div>
     </div>
     <div class="lang-done-btn" onclick="closeLangModal()">Confirmar</div>
-  </div>
+</div>
 
-  <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
     <div class="nav-item on" id="nav-home" onclick="navTo('s-home','nav-home')">
-      <div class="nav-icon-wrap">
+    <div class="nav-icon-wrap">
         <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </div>
-      <span class="nav-label">Início</span>
+    </div>
+    <span class="nav-label">Início</span>
     </div>
     <div class="nav-item" id="nav-cam" onclick="navTo('s-cam','nav-cam')">
-      <div class="nav-icon-wrap">
+    <div class="nav-icon-wrap">
         <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-      </div>
-      <span class="nav-label">Câmera</span>
+    </div>
+    <span class="nav-label">Câmera</span>
     </div>
     <div class="nav-item" id="nav-resumo" onclick="navTo('s-resumo','nav-resumo')">
-      <div class="nav-icon-wrap">
+    <div class="nav-icon-wrap">
         <div class="nav-badge show" id="badge-resumo"></div>
         <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-      </div>
-      <span class="nav-label">Resumos</span>
+    </div>
+    <span class="nav-label">Resumos</span>
     </div>
     <div class="nav-item" id="nav-inet" onclick="navTo('s-inet','nav-inet')">
-      <div class="nav-icon-wrap">
+    <div class="nav-icon-wrap">
         <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      </div>
-      <span class="nav-label">Internet</span>
+    </div>
+    <span class="nav-label">Internet</span>
     </div>
     <div class="nav-item" id="nav-config" onclick="navTo('s-config','nav-config')">
-      <div class="nav-icon-wrap">
+    <div class="nav-icon-wrap">
         <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
-      </div>
-      <span class="nav-label">Config</span>
     </div>
-  </div>
+    <span class="nav-label">Config</span>
+    </div>
+</div>
 
 </div><!-- /phone -->
 </div><!-- /shell -->
 
-<script src="src/script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
