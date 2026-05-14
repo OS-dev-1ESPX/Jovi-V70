@@ -9,15 +9,11 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div class="shell">
 <div class="phone">
-
   <div class="notch">
     <div class="notch-cam"></div>
   </div>
-
-  <!-- Status Bar -->
   <div class="status-bar">
     <span class="status-time" id="clock">09:41</span>
     <div class="status-icons">
@@ -33,10 +29,6 @@
       </div>
     </div>
   </div>
-
-
-  <!-- Notification -->
-  <!-- Dynamic Island Notification -->
   <div class="di-island di-hide" id="di-island">
     <div class="di-inner" id="di-inner">
       <div class="di-dot" id="di-dot"></div>
@@ -46,14 +38,8 @@
       </div>
     </div>
   </div>
-
-  <!-- APP AREA (wraps login + all screens so bottom-nav is always visible) -->
   <div class="app" id="app-area">
-
-  <!-- ── TELA DE LOGIN ── -->
   <div class="screen active" id="s-login" style="overflow:hidden;">
-
-    <!-- Slideshow -->
     <div class="slideshow" id="slideshow">
       <div class="slide active" id="slide-0">
         <div class="slide-icon">🎓</div>
@@ -70,19 +56,15 @@
         <div class="slide-title">Flashcards & Simulados</div>
         <div class="slide-desc">Revise com flashcards e teste seus conhecimentos com simulados interativos.</div>
       </div>
-      <!-- Dots de navegação -->
       <div class="slide-dots">
         <div class="slide-dot active" onclick="goSlide(0)"></div>
         <div class="slide-dot" onclick="goSlide(1)"></div>
         <div class="slide-dot" onclick="goSlide(2)"></div>
       </div>
     </div>
-
-    <!-- Formulário de login -->
     <div class="login-form">
       <div class="login-title">Entrar</div>
       <div class="login-subtitle">Acesse sua conta Jovi V70</div>
-
       <div class="login-field">
         <label class="login-label">Usuário</label>
         <input class="login-input" type="text" id="login-user" placeholder="Digite seu usuário" autocomplete="off">
@@ -95,10 +77,7 @@
       <button class="login-btn" onclick="fazerLogin()">Entrar no app</button>
       <div class="login-hint">Use <strong>aluno</strong> / <strong>1234</strong> para entrar</div>
     </div>
-
   </div>
-
-  <!-- ── SCREEN 1: HOME ── -->
     <div class="screen" id="s-home">
       <div class="home-scroll">
         <div class="home-header">
@@ -108,8 +87,6 @@
           </div>
           <div class="home-avatar">A</div>
         </div>
-
-        <!-- Mode Card -->
         <div class="mode-card" style="position:relative;">
           <div class="focus-ring" id="focus-ring"></div>
           <div class="mode-top">
@@ -136,8 +113,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Quick Actions -->
         <div class="sec-head">
           <div class="sec-title">Acesso rápido</div>
         </div>
@@ -155,8 +130,6 @@
             <div class="qc-arrow">→</div>
           </div>
         </div>
-
-        <!-- Subjects -->
         <div class="sec-head">
           <div class="sec-title">Minhas matérias</div>
           <div class="sec-link" onclick="goTo('s-materias')">Ver todas</div>
@@ -207,11 +180,8 @@
             </div>
           </div>
         </div>
-
       </div>
-    </div><!-- /s-home -->
-
-    <!-- ── SCREEN: MATEMÁTICA ── -->
+    </div>
     <div class="screen materia-screen mat-screen" id="s-mat">
       <div class="mat-hero">
         <div class="mat-hero-bg"></div>
@@ -241,7 +211,6 @@
           <div class="mat-stat"><div class="mst-val">32</div><div class="mst-lbl">Flashcards</div></div>
           <div class="mat-stat"><div class="mst-val">🔥7</div><div class="mst-lbl">Sequência</div></div>
         </div>
-
         <div class="mat-sec-label">Tópicos</div>
         <div class="topico-list">
           <div class="topico-item">
@@ -285,7 +254,6 @@
             </div>
           </div>
         </div>
-
         <div class="mat-sec-label">Últimas atividades</div>
         <div class="atividade-list">
           <div class="atividade-item">
@@ -307,8 +275,6 @@
         <div style="height:16px;"></div>
       </div>
     </div>
-
-    <!-- ── SCREEN: FÍSICA ── -->
     <div class="screen materia-screen fis-screen" id="s-fis">
       <div class="mat-hero fis-hero">
         <div class="mat-hero-bg fis-hero-bg"></div>
@@ -338,7 +304,6 @@
           <div class="mat-stat"><div class="mst-val" style="color:#60a5fa;">14</div><div class="mst-lbl">Flashcards</div></div>
           <div class="mat-stat"><div class="mst-val" style="color:#60a5fa;">🔥4</div><div class="mst-lbl">Sequência</div></div>
         </div>
-
         <div class="mat-sec-label">Tópicos</div>
         <div class="topico-list">
           <div class="topico-item">
@@ -382,7 +347,6 @@
             </div>
           </div>
         </div>
-
         <div class="mat-sec-label">Últimas atividades</div>
         <div class="atividade-list">
           <div class="atividade-item">
@@ -399,8 +363,6 @@
         <div style="height:16px;"></div>
       </div>
     </div>
-
-    <!-- ── SCREEN: BIOLOGIA ── -->
     <div class="screen materia-screen bio-screen" id="s-bio">
       <div class="mat-hero bio-hero">
         <div class="mat-hero-bg bio-hero-bg"></div>
@@ -430,7 +392,6 @@
           <div class="mat-stat"><div class="mst-val" style="color:#00dfa2;">6</div><div class="mst-lbl">Flashcards</div></div>
           <div class="mat-stat"><div class="mst-val" style="color:#00dfa2;">🔥2</div><div class="mst-lbl">Sequência</div></div>
         </div>
-
         <div class="mat-sec-label">Tópicos</div>
         <div class="topico-list">
           <div class="topico-item">
@@ -474,7 +435,6 @@
             </div>
           </div>
         </div>
-
         <div class="mat-sec-label">Últimas atividades</div>
         <div class="atividade-list">
           <div class="atividade-item">
@@ -490,8 +450,6 @@
         <div style="height:16px;"></div>
       </div>
     </div>
-
-    <!-- ── SCREEN: QUÍMICA ── -->
     <div class="screen materia-screen qui-screen" id="s-qui">
       <div class="mat-hero qui-hero">
         <div class="mat-hero-bg qui-hero-bg"></div>
@@ -521,14 +479,12 @@
           <div class="mat-stat"><div class="mst-val" style="color:#ffc93c;">2</div><div class="mst-lbl">Flashcards</div></div>
           <div class="mat-stat"><div class="mst-val" style="color:#505070;">0</div><div class="mst-lbl">Sequência</div></div>
         </div>
-
         <div class="qui-start-card">
           <div class="qui-start-icon">🚀</div>
           <div class="qui-start-title">Comece agora!</div>
           <div class="qui-start-desc">Fotografe um quadro ou caderno de Química para gerar seu primeiro resumo com IA.</div>
           <div class="qui-start-btn" onclick="goTo('s-cam')">📷 Escanear conteúdo</div>
         </div>
-
         <div class="mat-sec-label">Tópicos</div>
         <div class="topico-list">
           <div class="topico-item">
@@ -575,10 +531,6 @@
         <div style="height:16px;"></div>
       </div>
     </div>
-
-
-
-    <!-- ── SCREEN 2: CÂMERA ── -->
     <div class="screen cam-screen" id="s-cam">
       <div class="cam-header">
         <div class="cam-title-group">
@@ -587,7 +539,6 @@
         </div>
         <div class="cam-badge-ia">IA ativa</div>
       </div>
-
       <div class="cam-viewfinder">
         <div class="vf-grid"></div>
         <div class="vf-content">
@@ -603,7 +554,6 @@
             <div class="board-line l2" style="width:95%;"></div>
           </div>
         </div>
-
         <div class="scan-frame">
           <div class="sf-corner tl"></div>
           <div class="sf-corner tr"></div>
@@ -611,8 +561,6 @@
           <div class="sf-corner br"></div>
           <div class="scan-line"></div>
         </div>
-
-        <!-- AI Processing overlay -->
         <div class="ai-overlay" id="ai-overlay">
           <div class="ai-spinner"></div>
           <div class="ai-proc-text">Processando com IA</div>
@@ -620,7 +568,6 @@
           <div class="ai-dots"><span></span><span></span><span></span></div>
         </div>
       </div>
-
       <div class="cam-controls">
         <div class="cam-side-btn" onclick="goBack()">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
@@ -637,8 +584,6 @@
         </div>
       </div>
     </div>
-
-    <!-- ── SCREEN 3: RESUMO ── -->
     <div class="screen" id="s-resumo">
       <div class="resumo-header">
         <div class="back-btn" onclick="goBack()">
@@ -650,9 +595,7 @@
         </div>
         <div class="rh-ia-chip">IA</div>
       </div>
-
       <div class="resumo-scroll">
-
         <div class="photo-preview">
           <div class="photo-thumb-icon">📸</div>
           <div class="photo-info">
@@ -661,7 +604,6 @@
           </div>
           <div class="photo-quality">✓ Alta qualidade</div>
         </div>
-
         <div class="score-pill">
           <div class="sp-item">
             <div class="sp-val" style="color:var(--green);" id="resumo-precision">94%</div>
@@ -676,12 +618,10 @@
             <div class="sp-lbl">Conceitos</div>
           </div>
         </div>
-
         <div class="r-block purple">
           <div class="r-block-title">Conceito principal</div>
           <div class="r-block-text" id="resumo-concept">As <strong>3 Leis de Newton</strong> descrevem o movimento dos corpos e a relação entre força e aceleração. São a base da mecânica clássica e fundamentais para compreender o comportamento de objetos no espaço.</div>
         </div>
-
         <div class="r-block green">
           <div class="r-block-title">Pontos-chave</div>
           <div class="kp-list" id="resumo-keypoints">
@@ -699,7 +639,6 @@
             </div>
           </div>
         </div>
-
         <div class="r-block yellow">
           <div class="r-block-title">Palavras-chave</div>
           <div class="tag-cloud" id="resumo-tags">
@@ -712,30 +651,24 @@
             <span class="tag yellow">Repouso</span>
           </div>
         </div>
-
         <div class="resumo-actions">
           <button class="r-btn secondary" onclick="salvarResumo()">💾 Salvar</button>
           <button class="r-btn primary" onclick="showNotif('Flashcards criados! 🎉')">⚡ Flashcards</button>
         </div>
         <div style="height:8px;"></div>
         <button class="r-btn secondary" style="width:100%;" onclick="goTo('s-cam')">📷 Fotografar outro quadro</button>
-
       </div>
     </div>
-
-    <!-- ── SCREEN 4: INTERNET ── -->
     <div class="screen" id="s-inet">
       <div class="inet-header">
         <div class="inet-title">Internet</div>
         <div class="inet-sub">IA filtrando o acesso em tempo real</div>
       </div>
-
       <div class="inet-scroll">
         <div class="ia-status-bar">
           <div class="ia-pulse"></div>
           <div class="ia-status-text">IA ativa · 12 apps bloqueados · modo estudo ON</div>
         </div>
-
         <div class="usage-card">
           <div class="usage-top">
             <div class="usage-title">Uso de dados hoje</div>
@@ -743,13 +676,11 @@
           </div>
           <div class="usage-bar-bg"><div class="usage-bar-fill"></div></div>
         </div>
-
         <div class="inet-search">
           <span class="inet-search-icon">🔍</span>
           <span class="inet-search-text">Pesquisar — IA avalia o conteúdo</span>
           <div class="inet-search-badge">IA</div>
         </div>
-
         <div class="app-sec-title">🔴 Redes sociais — bloqueadas</div>
         <div class="app-list">
           <div class="app-item">
@@ -773,7 +704,6 @@
             <div class="app-chip chip-blocked">Bloqueado</div>
           </div>
         </div>
-
         <div class="app-sec-title">🟢 Educação — liberadas</div>
         <div class="app-list">
           <div class="app-item">
@@ -797,18 +727,14 @@
             <div class="app-chip chip-allowed">Liberado</div>
           </div>
         </div>
-
       </div>
     </div>
-
-    <!-- ── SCREEN 5: CONFIG ── -->
     <div class="screen" id="s-config">
       <div class="config-header">
         <div class="config-title">Configurações</div>
         <div class="config-sub">Personalize seu Modo Estudo</div>
       </div>
       <div class="config-scroll">
-
         <div class="profile-card">
           <div class="profile-avatar">A</div>
           <div>
@@ -820,7 +746,6 @@
             <div class="streak-lbl">dias seguidos</div>
           </div>
         </div>
-
         <div class="config-section">
           <div class="config-sec-label">Modo Estudo</div>
           <div class="config-group">
@@ -843,7 +768,6 @@
             </div>
           </div>
         </div>
-
         <div class="config-section">
           <div class="config-sec-label">Aparência</div>
           <div class="config-group">
@@ -854,7 +778,6 @@
             </div>
           </div>
         </div>
-
         <div class="config-section">
           <div class="config-sec-label">Câmera IA</div>
           <div class="config-group">
@@ -875,7 +798,6 @@
             </div>
           </div>
         </div>
-
         <div class="config-section">
           <div class="config-sec-label">Internet</div>
           <div class="config-group">
@@ -891,12 +813,9 @@
             </div>
           </div>
         </div>
-
         <div style="height:10px;"></div>
       </div>
     </div>
-
-    <!-- ── SCREEN: VER TODAS MATÉRIAS ── -->
     <div class="screen" id="s-materias">
       <div class="config-header" style="display:flex;align-items:center;gap:12px;">
         <div class="mat-back-btn" onclick="goBack()" style="margin-bottom:0;flex-shrink:0;">
@@ -908,8 +827,6 @@
         </div>
       </div>
       <div class="materias-all-scroll">
-
-        <!-- Matemática -->
         <div class="matall-card" onclick="goTo('s-mat')">
           <div class="matall-left">
             <div class="matall-icon" style="background:rgba(111,92,232,0.15);color:#8f7fff;border-color:rgba(111,92,232,0.25);">∑</div>
@@ -929,8 +846,6 @@
             <div class="matall-arrow">›</div>
           </div>
         </div>
-
-        <!-- Física -->
         <div class="matall-card" onclick="goTo('s-fis')">
         <div class="matall-left">
             <div class="matall-icon" style="background:rgba(59,130,246,0.12);color:#60a5fa;border-color:rgba(59,130,246,0.25);">⚛</div>
@@ -950,8 +865,6 @@
             <div class="matall-arrow">›</div>
         </div>
         </div>
-
-        <!-- Biologia -->
         <div class="matall-card" onclick="goTo('s-bio')">
         <div class="matall-left">
             <div class="matall-icon" style="background:rgba(0,223,162,0.1);color:#00dfa2;border-color:rgba(0,223,162,0.25);">🧬</div>
@@ -971,8 +884,6 @@
             <div class="matall-arrow">›</div>
         </div>
         </div>
-
-        <!-- Química -->
         <div class="matall-card" onclick="goTo('s-qui')">
         <div class="matall-left">
             <div class="matall-icon" style="background:rgba(255,201,60,0.1);color:#ffc93c;border-color:rgba(255,201,60,0.25);">⚗</div>
@@ -992,18 +903,14 @@
             <div class="matall-arrow">›</div>
         </div>
         </div>
-
         <div class="matall-summary">
         <div class="matall-sum-item"><div class="mas-val">7</div><div class="mas-lbl">Resumos totais</div></div>
         <div class="matall-sum-item"><div class="mas-val">54</div><div class="mas-lbl">Flashcards</div></div>
         <div class="matall-sum-item"><div class="mas-val">41%</div><div class="mas-lbl">Média geral</div></div>
         </div>
-
         <div style="height:16px;"></div>
     </div>
     </div>
-
-    <!-- ── SCREEN: TÓPICO DETALHE ── -->
     <div class="screen" id="s-topico">
     <div class="resumo-header">
         <div class="back-btn" onclick="goBack()">
@@ -1017,15 +924,12 @@
         </div>
         </div>
     </div>
-
     <div class="resumo-scroll">
-        <!-- Quick Stats -->
         <div class="mat-stats-row">
         <div class="mat-stat"><div class="mst-val" style="color:var(--text);">1</div><div class="mst-lbl">Resumos</div></div>
         <div class="mat-stat"><div class="mst-val" style="color:var(--text);">12</div><div class="mst-lbl">Flashcards</div></div>
         <div class="mat-stat"><div class="mst-val" style="color:var(--green);">85%</div><div class="mst-lbl">Acertos</div></div>
         </div>
-
         <div class="mat-sec-label">Resumos Salvos</div>
         <div class="atividade-list">
         <div class="atividade-item" onclick="openResumo()" style="cursor:pointer;">
@@ -1034,7 +938,6 @@
             <div class="atv-badge" style="background:rgba(111,92,232,0.15);color:#8f7fff;">📄</div>
         </div>
         </div>
-
         <div class="mat-sec-label" style="margin-top:20px;">Prática e Revisão</div>
         <div class="quick-row">
         <div class="quick-card" onclick="startFlashcards()">
@@ -1050,12 +953,9 @@
             <div class="qc-arrow">→</div>
         </div>
         </div>
-        
         <div style="height:16px;"></div>
     </div>
     </div>
-
-    <!-- ── SCREEN: FLASHCARDS ── -->
     <div class="screen flashcards-screen" id="s-flashcards">
     <div class="fc-header">
         <div class="back-btn" onclick="goBack()">
@@ -1067,10 +967,8 @@
         </div>
         <div class="rh-ia-chip">IA</div>
     </div>
-    
     <div class="fc-container">
         <div class="fc-progress" id="fc-progress">Cartão 1 de 12</div>
-        
         <div class="flashcard" id="active-flashcard" onclick="flipCard()">
         <div class="flashcard-inner" id="fc-inner">
             <div class="fc-side fc-front">
@@ -1091,8 +989,6 @@
         </div>
     </div>
     </div>
-
-    <!-- ── SCREEN: EXAM ── -->
     <div class="screen" id="s-exam">
     <div class="fc-header">
         <div class="back-btn" onclick="goBack()">
@@ -1103,18 +999,15 @@
         <div class="fc-sub" id="ex-topic-sub">Exercícios práticos</div>
         </div>
     </div>
-    
     <div class="ex-scroll">
         <div class="ex-progress">
         <div class="ex-prog-text" id="ex-prog-text">Questão 1/5</div>
         <div class="ex-prog-bar"><div class="ex-prog-fill" id="ex-prog-fill"></div></div>
         </div>
-        
         <div class="ex-question-card">
         <div class="ex-qnum" id="ex-qnum">Questão 1</div>
         <div class="ex-qtext" id="ex-qtext">Qual é a fórmula fundamental da 2ª Lei de Newton?</div>
         </div>
-        
         <div class="ex-options" id="ex-options">
         <div class="ex-option" onclick="selectOption(this, false)">
             <div class="ex-opt-letter">A</div>
@@ -1133,12 +1026,9 @@
             <div class="ex-opt-text" id="ex-opt-d">P = m · g</div>
         </div>
         </div>
-        
         <button class="ex-check-btn" id="ex-next-btn" onclick="nextQuestion()">Próxima questão</button>
     </div>
     </div>
-
-    <!-- ── SCREEN: EXAM RESULT ── -->
     <div class="screen" id="s-exam-result">
     <div class="fc-header">
         <div class="back-btn" onclick="goBack()">
@@ -1149,24 +1039,17 @@
         <div class="fc-sub">Resumo do Simulado</div>
         </div>
     </div>
-    
     <div class="ex-scroll" style="display:flex; flex-direction:column; align-items:center; padding: 40px 20px;">
         <div class="res-circle" id="res-score">0/0</div>
         <div class="res-title" id="res-title-text">Bom trabalho!</div>
         <div class="res-sub">Abaixo está o seu desempenho em cada questão:</div>
-        
         <div class="res-list" id="res-list" style="width: 100%; margin-top: 30px; display:flex; flex-direction:column; gap:12px;">
-        <!-- Injected via JS -->
         </div>
-        
         <button class="ex-check-btn show" style="margin-top: 40px;" onclick="goTo('s-topico')">Voltar para o Tópico</button>
         <div style="height: 30px;"></div>
     </div>
     </div>
-
-</div><!-- /app -->
-
-<!-- ── MODAL: IDIOMA DO RESUMO ── -->
+</div>
 <div class="lang-overlay" id="lang-overlay" onclick="closeLangModal()"></div>
 <div class="lang-sheet" id="lang-sheet">
     <div class="lang-sheet-handle"></div>
@@ -1184,8 +1067,6 @@
     </div>
     <div class="lang-done-btn" onclick="closeLangModal()">Confirmar</div>
 </div>
-
-<!-- BOTTOM NAV -->
 <div class="bottom-nav">
     <div class="nav-item on" id="nav-home" onclick="navTo('s-home','nav-home')">
     <div class="nav-icon-wrap">
@@ -1219,11 +1100,8 @@
     <span class="nav-label">Config</span>
     </div>
 </div>
-
-</div><!-- /phone -->
-</div><!-- /shell -->
-
+</div>
+</div>
 <script src="script.js"></script>
-
 </body>
 </html>
