@@ -1,9 +1,126 @@
-// ── CLOCK ──
+// ── LOGIN ──
+function fazerLogin() {
+  const userEl = document.getElementById('login-user');
+  const passEl = document.getElementById('login-pass');
+  const errorEl = document.getElementById('login-error');
+
+  const usuario = userEl.value.trim();
+  const senha   = passEl.value;
+
+  // Limpa estados anteriores
+  userEl.classList.remove('input-error');
+  passEl.classList.remove('input-error');
+  errorEl.textContent = '';
+
+  // ── Validações com alert() e lógica inline ──
+  if (usuario === '' && senha === '') {
+    alert('Preencha o usuário e a senha para continuar.');
+    userEl.classList.add('input-error');
+    passEl.classList.add('input-error');
+    userEl.focus();
+    return;
+  }
+
+  if (usuario === '') {
+    errorEl.textContent = 'O campo usuário não pode estar vazio.';
+    userEl.classList.add('input-error');
+    userEl.focus();
+    return;
+  }
+
+  if (senha === '') {
+    errorEl.textContent = 'O campo senha não pode estar vazio.';
+    passEl.classList.add('input-error');
+    passEl.focus();
+    return;
+  }
+
+  if (senha.length < 4) {
+    errorEl.textContent = 'A senha deve ter pelo menos 4 caracteres.';
+    passEl.classList.add('input-error');
+    passEl.focus();
+    return;
+  }
+
+  // ── Credenciais corretas ──
+  if (usuario === 'aluno' && senha === '1234') {
+    // Atualiza o avatar e nome no app com o usuário digitado
+    document.querySelectorAll('.home-avatar, .profile-avatar').forEach(el => {
+      el.textContent = usuario[0].toUpperCase();
+    });
+    document.querySelector('.profile-name') && (document.querySelector('.profile-name').textContent = usuario);
+
+    // Esconde login e mostra a home
+    const loginScreen = document.getElementById('s-login');
+    loginScreen.style.opacity = '0';
+    loginScreen.style.transition = 'opacity 0.3s';
+    setTimeout(() => {
+      loginScreen.style.display = 'none';
+      // Ativa a home e libera a nav
+      document.getElementById('s-home').classList.add('active');
+      document.getElementById('app-area').classList.add('logged-in');
+      document.querySelector('.bottom-nav').classList.add('active');
+      currentScreen = 's-home';
+    }, 300);
+
+    // Para o slideshow
+    clearInterval(slideshowTimer);
+    return;
+  }
+
+  // ── Credenciais erradas ──
+  alert('Usuário ou senha incorretos. Tente novamente.');
+  passEl.value = '';
+  userEl.classList.add('input-error');
+  passEl.classList.add('input-error');
+  errorEl.textContent = 'Usuário ou senha inválidos.';
+  userEl.focus();
+}
+
+// Permite logar com Enter
+document.addEventListener('DOMContentLoaded', () => {
+  ['login-user', 'login-pass'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') fazerLogin(); });
+  });
+});
+
+// ── SLIDESHOW ──
+let currentSlide = 0;
+const totalSlides = 3;
+let slideshowTimer = null;
+
+function goSlide(index) {
+  const slides = document.querySelectorAll('.slide');
+  const dots   = document.querySelectorAll('.slide-dot');
+
+  // Marca o slide atual como "saindo"
+  slides[currentSlide].classList.add('exit');
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+
+  // Aguarda a transição e remove a classe exit
+  const prev = currentSlide;
+  setTimeout(() => slides[prev].classList.remove('exit'), 450);
+
+  currentSlide = index;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+  goSlide((currentSlide + 1) % totalSlides);
+}
+
+// Auto-avanço a cada 3,5 segundos
+slideshowTimer = setInterval(nextSlide, 3500);
+
+
 function updateClock() {
-  const now = new Date();
-  const h = String(now.getHours()).padStart(2,'0');
-  const m = String(now.getMinutes()).padStart(2,'0');
-  document.getElementById('clock').textContent = h + ':' + m;
+const now = new Date();
+const h = String(now.getHours()).padStart(2,'0');
+const m = String(now.getMinutes()).padStart(2,'0');
+document.getElementById('clock').textContent = h + ':' + m;
 }
 updateClock();
 setInterval(updateClock, 10000);
@@ -14,11 +131,11 @@ let currentNav = 'nav-home';
 const history = [];
 
 function goTo(screenId) {
-  if (screenId === currentScreen) return;
-  const prev = document.getElementById(currentScreen);
-  const next = document.getElementById(screenId);
-  prev.classList.add('slide-out');
-  next.classList.add('active');
+if (screenId === currentScreen) return;
+const prev = document.getElementById(currentScreen);
+const next = document.getElementById(screenId);
+prev.classList.add('slide-out');
+next.classList.add('active');
   setTimeout(() => prev.classList.remove('active','slide-out'), 380);
   history.push(currentScreen);
   currentScreen = screenId;
@@ -65,6 +182,12 @@ let modeSeconds = 0;
 let modeTimer = null;
 
 function toggleMode() {
+  // Se estiver ligado, pede confirmação antes de desligar
+  if (modeOn) {
+    const confirmou = confirm('Deseja desativar o Modo Estudo?\n\nSeu progresso da sessão atual será encerrado.');
+    if (!confirmou) return; // usuário cancelou — não faz nada
+  }
+
   modeOn = !modeOn;
   const toggle = document.getElementById('main-toggle');
   const modeText = document.getElementById('mode-text');
@@ -118,7 +241,28 @@ function shootPhoto() {
   }, 2500);
 }
 
-// ── DYNAMIC ISLAND NOTIFICATIONS ──
+// ── SALVAR RESUMO com prompt() ──
+function salvarResumo() {
+  const sugestao = document.getElementById('resumo-sub')
+    ? document.getElementById('resumo-sub').textContent.split('·')[0].trim()
+    : 'Resumo';
+
+  const nome = prompt('📄 Como deseja salvar este resumo?\nDigite um nome:', sugestao);
+
+  if (nome === null) {
+    // Usuário clicou em "Cancelar"
+    return;
+  }
+
+  if (nome.trim() === '') {
+    alert('O nome do resumo não pode estar vazio. Tente novamente.');
+    return;
+  }
+
+  showNotif('Resumo "' + nome.trim() + '" salvo! 💾');
+}
+
+
 let notifTimeout;
 const diIcons = {
   'estudo': '🎓', 'desativado': '✋', 'resumo': '✨',
@@ -1194,18 +1338,18 @@ function finishExam() {
 
 // ── THEME TOGGLE ──
 function toggleTheme() {
-  const html = document.documentElement;
-  const current = html.getAttribute('data-theme');
-  const toggleBtn = document.getElementById('theme-toggle');
-  const toggleDesc = document.getElementById('theme-desc');
-  
-  if (current === 'light') {
+const html = document.documentElement;
+const current = html.getAttribute('data-theme');
+const toggleBtn = document.getElementById('theme-toggle');
+const toggleDesc = document.getElementById('theme-desc');
+
+if (current === 'light') {
     html.removeAttribute('data-theme');
     toggleBtn.classList.remove('on');
     if(toggleDesc) toggleDesc.textContent = 'Modo Escuro';
-  } else {
+} else {
     html.setAttribute('data-theme', 'light');
     toggleBtn.classList.add('on');
     if(toggleDesc) toggleDesc.textContent = 'Modo Claro';
-  }
+}
 }
