@@ -70,7 +70,7 @@ O objetivo é representar um app de produtividade escolar com funções como:
  ---
 ## 🌐 Link Do pages
 
-👉 https://lipex459-dev.github.io/Jovi-v70/
+👉 https://os-dev-1espx.github.io/Jovi-V70/
 
 ---
 
