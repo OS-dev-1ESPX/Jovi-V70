@@ -1,6 +1,5 @@
 # Jovi-v70# 
 
-
 Este projeto é uma **simulação / protótipo em HTML, CSS e JavaScript** inspirado no *Modo Estudo* do celular **Jovi V70**, com uma interface moderna e animações suaves.
 
 O objetivo é representar um app de produtividade escolar com funções como:
@@ -11,6 +10,7 @@ O objetivo é representar um app de produtividade escolar com funções como:
 - Tela de configurações personalizadas
 
 ---
+
 ## 👥 Integrantes
 
 | Vinicius Di Tulio Gomes Silva   | RM:573019 |
